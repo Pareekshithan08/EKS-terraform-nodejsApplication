@@ -30,3 +30,14 @@ module "vpc" {
     "10.0.4.0/24"
   ]
 }
+
+module "eks" {
+  source = "./modules/eks"
+
+  cluster_name = "eks-dev-cluster"
+
+  subnet_ids = concat(
+    module.vpc.public_subnet_ids,
+    module.vpc.private_subnet_ids
+  )
+}
