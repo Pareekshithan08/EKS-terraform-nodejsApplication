@@ -2,6 +2,11 @@ variable "aws_region" {
   default = "us-east-1"
 }
 
+variable "cluster_name" {
+  type    = string
+  default = "eks-dev-cluster"
+}
+
 variable "azs" {
   type    = list(string)
   default = [
