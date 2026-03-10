@@ -84,3 +84,8 @@ provider "helm" {
     }
   }
 }
+
+set {
+  name  = "serviceAccount.annotations.eks\\.amazonaws\\.com/role-arn"
+  value = module.eks.lb_controller_role_arn
+}
