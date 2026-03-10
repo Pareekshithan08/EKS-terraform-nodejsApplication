@@ -13,12 +13,12 @@ resource "helm_release" "aws_load_balancer_controller" {
 
   set {
     name  = "region"
-    value = "var.aws_region"
+    value = var.aws_region
   }
 
   set {
     name  = "vpcId"
-    value = "module.vpc.vpc_id"
+    value = module.vpc.vpc_id
   }
 
   set {
