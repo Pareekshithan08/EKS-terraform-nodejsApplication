@@ -33,7 +33,7 @@ module "vpc" {
 
   vpc_cidr = "10.0.0.0/16"
 
-  cluster_name = "eks-dev-cluster"
+  cluster_name = var.cluster_name
 
   azs            = var.azs
   public_subnet  = var.public_subnet

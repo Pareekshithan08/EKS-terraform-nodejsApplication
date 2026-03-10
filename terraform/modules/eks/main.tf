@@ -98,7 +98,12 @@ resource "aws_eks_node_group" "nodes" {
 
   instance_types = ["t3.medium"]
 
+  tags = {
+    Name = "eks-node-group"
+  }
+
   depends_on = [ 
+    aws_eks_cluster.eks,
     aws_iam_role_policy_attachment.worker_node_policy,
     aws_iam_role_policy_attachment.cni_policy,
     aws_iam_role_policy_attachment.ecr_policy
