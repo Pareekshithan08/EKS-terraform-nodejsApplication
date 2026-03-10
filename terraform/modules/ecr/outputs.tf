@@ -1,3 +1,3 @@
 output "repository_url" {
-  value = aws_ecr_repository.patient-service
+  value = aws_ecr_repository.patient-service.repository_url
 }

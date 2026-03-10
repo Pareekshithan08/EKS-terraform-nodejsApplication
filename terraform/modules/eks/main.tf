@@ -1,7 +1,7 @@
 resource "aws_iam_role" "eks_cluster_role" {
   name = "eks-cluster-role"
 
-  assume_role_policy = jsondecode({
+  assume_role_policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
         {
@@ -41,7 +41,7 @@ resource "aws_eks_cluster" "eks" {
 resource "aws_iam_role" "eks_node_role" {
   name = "eks-node-role"
 
-  assume_role_policy = jsondecode({
+  assume_role_policy = jsonencode({
     Version = "2012-10-17"
 
     Statement = [
@@ -96,7 +96,7 @@ resource "aws_eks_node_group" "nodes" {
     min_size = 1
   }
 
-  instance_types = ["t2.medium"]
+  instance_types = ["t3.medium"]
 
   depends_on = [ 
     aws_iam_role_policy_attachment.worker_node_policy,
