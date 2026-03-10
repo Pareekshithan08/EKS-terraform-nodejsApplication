@@ -21,7 +21,7 @@ spec:
       containers:
       - name: patient-service
 
-        image: <ECR_REPO_URL>:latest
+        image: 584135072796.dkr.ecr.us-east-1.amazonaws.com/patient-service:latest
         imagePullPolicy: Always
 
         ports:
