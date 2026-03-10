@@ -21,8 +21,7 @@ resource "aws_subnet" "public" {
   map_public_ip_on_launch = true
 
   tags = {
-    Name = "public-subnet-${count.index}"
-
+    
     Name = "eks-public-subnet-${count.index}"
 
     "kubernetes.io/cluster/${var.cluster_name}" = "shared"
@@ -40,9 +39,8 @@ resource "aws_subnet" "private" {
 
   availability_zone = var.azs[count.index]
 
-  tags = {
-    Name = "private-subnet-${count.index}"
-
+  tags = {   
+    
     Name = "eks-private-subnet-${count.index}"
 
     "kubernetes.io/cluster/${var.cluster_name}" = "shared"
