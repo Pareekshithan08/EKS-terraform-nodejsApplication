@@ -136,6 +136,7 @@ resource "aws_iam_role" "aws_load_balancer_controller" {
       }
     ]
   })
+  depends_on = [aws_iam_openid_connect_provider.eks]
 }
 
 resource "aws_iam_role_policy_attachment" "aws_lb_controller_attach" {
