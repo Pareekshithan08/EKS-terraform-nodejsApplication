@@ -212,7 +212,10 @@ resource "aws_iam_policy" "aws_load_balancer_controller" {
         Action = [
           "ec2:AuthorizeSecurityGroupIngress",
           "ec2:RevokeSecurityGroupIngress",
-          "ec2:CreateSecurityGroup"
+          "ec2:CreateSecurityGroup",
+          "ec2:CreateTags",
+          "ec2:DeleteTags",
+          "ec2:DescribeTags"
         ]
         Resource = "*"
       },
