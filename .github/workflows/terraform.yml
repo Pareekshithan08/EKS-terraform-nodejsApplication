@@ -64,4 +64,5 @@ jobs:
             else
               terraform apply tfplan
             fi
+          fi
           
