@@ -2,9 +2,21 @@ name: Terraform Infrastructure
 
 on:
   workflow_dispatch:
-  push:
-    paths:
-        - 'terraform/**'
+    inputs:
+      action:
+        description: 'Select the terraform action to perform'
+        required: true
+        default: 'apply'
+        type: choice
+        options:
+          - apply
+          - destroy
+      target:
+        description: 'Specify the terraform target resource (optional)'
+        required: false
+        default: ''
+        type: string
+          
 
 jobs:
   terraform:
@@ -29,9 +41,27 @@ jobs:
 
       - name: Terraform Plan
         working-directory: ./terraform
-        run: terraform plan
+        run: |
+          if [ "${{ github.event.inputs.action }}" == "apply" ]; then
+            terraform plan -out=tfplan
+          elif [ "${{ github.event.inputs.action }}" == "destroy" ]; then
+            terraform plan -destroy -out=tfplan
+          fi
 
-      - name: Terraform Apply
+      - name: Terraform Apply / Destroy
         if: github.ref == 'refs/heads/main'
         working-directory: ./terraform
-        run: terraform apply -auto-approve
+        run: |
+          if [ "${{ github.event.inputs.action }}" == "destroy" ]; then
+            if [ -n "${{ github.event.inputs.target }}" ]; then
+              terraform apply -destroy -target=${{ github.event.inputs.target }} tfplan
+            else
+              terraform apply -destroy tfplan
+            fi
+          else
+            if [ -n "${{ github.event.inputs.target }}" ]; then
+              terraform apply -target=${{ github.event.inputs.target }} tfplan
+            else
+              terraform apply tfplan
+            fi
+          
